@@ -360,6 +360,37 @@ console.log("Merge sort below");
 console.log(mergeSortMy([20, -6, -2, 5, 2]));
 
 
+// Cartesian Product of two Sets
+// In mathematics, specifically in set theory, the cartesian product of two sets A and B , denoted as AxB, is the set of all ordered pairs(a, b) where a is in A and b is in B.
+/*
+const A = new Set([1, 2])
+const B = new Set([3, 4])
+cartesian Product = [[1, 3], [1, 4], [2, 3], [2, 4]]
+ */
+
+const cartesianProduct = (arr1, arr2) => {
+    const result = [];
+    const setArr1 = new Set(arr1);
+    const setArr2 = new Set(arr2);
+
+    const newArr1 = Array.from(setArr1);
+    const newArr2 = Array.from(setArr2);
+
+    for(let i =0; i < newArr1.length; i++){
+        for(let j = 0; j < newArr2.length; j++){
+            result.push([newArr1[i], newArr2[j]])
+        }
+
+    }
+
+    return result;
+}
+
+console.log("Cartesian Product is ", cartesianProduct([1, 2, 3, 4], [3, 4, 5, 6]));// O(mn)
+
+// Climbing staircase problem
+
+
 
 return res.status(200).json({
             message: "DSA Playlist Controller is working",
