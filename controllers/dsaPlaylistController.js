@@ -389,6 +389,40 @@ const cartesianProduct = (arr1, arr2) => {
 console.log("Cartesian Product is ", cartesianProduct([1, 2, 3, 4], [3, 4, 5, 6]));// O(mn)
 
 // Climbing staircase problem
+// Given a staircase of `n` steps count the number of distinct ways to climb to the Top, You can either climb 1 step or 2 steps at a time
+// Eg:- 
+// if (n === 1) => climbingStaircase(1) => 1
+// if (n === 2) => climbingStaircase(2) => (1, 1), 2
+// if (n === 3) => climbingStaircase(3) => (1, 1, 1), (1, 2) and (2, 1)
+// if (n === 4) => climbingStaircase(4) => (1, 1, 1, 1), (1, 1, 2), (1, 2, 1), (2, 1, 1) and (2, 2)
+
+/*
+At any given time we can climb 1step or 2 step
+
+If you have to climb `n` steps, you can either:
+1. Climb 1 step from (n-1) steps
+2. Climb 2 steps from (n-2) steps
+So the number of ways to climb `n` steps is the sum of the number of ways
+climbingStaircase(n) = climbingStaircase(n-1) + climbingStaircase(n-2)
+ */
+
+const climbingStaircase = (numberOfSteps) => {
+    let numberOfWays = [1, 2];
+    for(let i = 2; i < numberOfSteps; i++){
+        numberOfWays[i] = numberOfWays[i - 1] + numberOfWays[i - 2];
+    }
+
+    return numberOfWays[numberOfSteps -1];
+}
+
+console.log("Number of steps to climb is ", climbingStaircase(1)); // Output: 1
+console.log("Number of steps to climb is ", climbingStaircase(2)); // Output: 2
+console.log("Number of steps to climb is ", climbingStaircase(3)); // Output: 3
+console.log("Number of steps to climb is ", climbingStaircase(4)); // Output: 5
+console.log("Number of steps to climb is ", climbingStaircase(5)); // Output: 8
+console.log("Number of steps to climb is ", climbingStaircase(6)); // Output: 13
+
+// Tower of Hanoi
 
 
 
