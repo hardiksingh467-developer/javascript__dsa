@@ -423,8 +423,19 @@ console.log("Number of steps to climb is ", climbingStaircase(5)); // Output: 8
 console.log("Number of steps to climb is ", climbingStaircase(6)); // Output: 13
 
 // Tower of Hanoi
+// The puzzle consist of three rods, the first rod has n disks of different sizes, the smallest disk is on top, and the largest disk is at the bottom.
+// The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules
+// 1. Only one disk may be moved at a time
+// 2. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod
+// 3. No larger disk may be placed on top of a smaller disk
 
 
+// ALGORITHM DESIGN TECHNIQUES
+// 1. Brute Force: Simple and exhaustive technique that evaluates every possible outcome to find the best solution. Linear Search
+// 2. Greedy: A technique that makes the locally optimal choice at each stage with the hope of finding a global optimum. Dijkstra's Algorithm, Prim's Algorithm, Kruskal's Algorithm
+// 3. Divide and Conquer: A technique that breaks a problem into smaller sub-problems, solves each subproblem independently, and combines their solutions to solve the original problem. Binary Search, Quick Sort, Merge Sort and tower of Hanoi
+// 4. Dynamic Programming: A technique that solves problems by breaking them down into simpler sub-problems and storing the results of these sub-problems to avoid redundant calculations. Fibonacci Numbers, Climbing Staircase
+// 5. Backtracking: Generate all possible solutions. Check if the solution satisfies all given constraints and only then you proceed with generating subsequent solutions. If the constraints are not satisfied , backtrack and go on a different path to find solutions. N-Queens Problem, Sudoku Solver, Rat in a Maze
 
 return res.status(200).json({
             message: "DSA Playlist Controller is working",
