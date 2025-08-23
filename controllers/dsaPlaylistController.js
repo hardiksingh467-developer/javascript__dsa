@@ -437,6 +437,246 @@ console.log("Number of steps to climb is ", climbingStaircase(6)); // Output: 13
 // 4. Dynamic Programming: A technique that solves problems by breaking them down into simpler sub-problems and storing the results of these sub-problems to avoid redundant calculations. Fibonacci Numbers, Climbing Staircase
 // 5. Backtracking: Generate all possible solutions. Check if the solution satisfies all given constraints and only then you proceed with generating subsequent solutions. If the constraints are not satisfied , backtrack and go on a different path to find solutions. N-Queens Problem, Sudoku Solver, Rat in a Maze
 
+//* DATA STRUCTURE
+//* Array(BUILT IN)
+// It is a data structure that can hold collection of values
+// It can contains a mix of data types
+// They are resizable, we do not have to declare the size of it
+// They start with index 0
+// They are iterable
+// Insertion Order is maintained in an array
+const sampleArray = [1, 2, 3, 4, 5, "hardik"];
+// READ ARRAY
+// At a certain position
+console.log("Arr at position 5 is ", sampleArray[5]);
+// To find the number of element in an array
+console.log("Arr at position 5 is ", sampleArray.length);
+// Iterating over each element
+for(let i = 0; i < arr.length; i++){
+    console.log(arr[i]);
+}
+// OR
+for(item in sampleArray){
+    console.log("item is ", item);
+}
+
+
+
+
+
+// UPDATE ARRAY
+// Add To the end of an Array
+sampleArray.push(4);
+// Add To the beginning of an Array
+sampleArray.unshift(4);
+// Remove From the end of an Array
+sampleArray.pop();
+// Remove From the beginning of an Array
+sampleArray.shift();
+// map
+// filter
+// reduce
+// concat
+// slice
+// splice
+
+// Time Complexity
+// Insert/ Remove from end - O(1)
+// Insert/ Remove from beginning - O(n) # as we need to reindex every other element
+// Access - O(1)
+// Search - O(n)
+
+// Push/Pop - O(1)
+// Shift/ Unshift/ Concat/ Slice/ Splice - O(n)
+// forEach/ map/ filter/ reduce - O(n)
+
+
+
+//* Objects(BUILT IN)
+// An Object is an unordered collection of key value pairs
+// The Key must either be  String or Symbol data type
+// The Value can be of any data type
+// To retrieve a value you can use a corresponding key, object["key"] OR object.key
+// An object is not iterable, You cannot use it with a for loop
+// Objects has a prototype and may contain a few default keys which may collide with you own keys if you are not careful
+// The number of items in an object must be determined manually
+// Apart from just storing data one can also attach functionality to an object
+// CREATE
+const obj = {
+    name: "Bruce",
+    age: 25,
+    "this is a key": "this is its value",
+    sayMyName: function(){console.log(this.name)}
+};
+
+// READ
+console.log(obj);
+console.log(obj.name);
+console.log(obj["age"]);// the bracket notation is used when keys contain spaces or hyphen
+console.log(obj["this is a key"]);
+obj.sayMyName();
+Object.keys(obj);
+Object.values(obj);
+Object.entries(obj);
+
+// UPDATE
+obj.hobby = "football";
+delete obj.hobby;
+
+// INSERT - O(1)
+// ACCESS - O(1)
+// SEARCH - O(n)
+// Object.keys(obj) - O(n)
+// Object.values(obj) - O(n)
+// Object.entries(obj) - O(n)
+// REMOVE - O(1)
+
+
+//* Sets(BUILT IN)
+// A set is a data structure that can hold a collection of values. The values however must be unique
+// Set can contain a mix of different data types. You can store strings, booleans, numbers or even objects all in the same set
+// Sets are dynamically sized
+// Sets DO NOT MAINTAIN an insertion order
+// Sets are iterables. They can accessed with a for loop
+// Searching an deleting an element in a set is faster when compared to arrays
+
+// CREATE
+const set = new Set([1, 2, 3]);
+
+// READ
+for (const item in set){
+    console.log("item is ", item);
+}
+console.log(set.has(5));
+console.log(set.size);
+
+// UPDATE
+set.add(4);
+set.delete(3);
+set.clear();
+
+
+//* Map(BUILT IN)
+// A map is an Ordered collection of key value pairs, Both keys and values can be of ay data type
+// To retrieve a value you can use the corresponding key
+// Maps are iterables, They can be accessed using a for loop
+// A map does not contain any keys by default
+// You can access the Map size using size property
+// Maps are just for storing Data
+
+// CREATE
+const map = new Map(["key1", "value1"], ["key2", "value2"]);
+
+// READ
+for(const [key, value] of map){
+    console.log(`${key}:${value}`);
+}
+// checking if the particular key exist
+console.log("Map has", map.has("key1"))
+console.log("Size of Map is ", map.size)
+
+// UPDATE
+map.set("c", 3);
+map.delete("c");
+map.clear();
+
+//* Stack
+// The stack data structure is a sequential collection of elements that follows the principle of Last in First Out (LIFO)
+// Similar to stack of plates the last plate added to a stack of plates is also the first plate removed from it
+// Stack is an abstract Data Type. It is defined by its behavior rather than being a mathematical order
+// A stack data structure supports two main operations: PUSH(adding an element to the the collection) and POP(removes the most recently added element to the collection)
+
+// Stack is great for History Tracking
+// Undo Operation
+// Expression COversion such as Infix to Postfix
+// Call Stack in JS Runtime
+
+//* Queue implementation
+// The Queue Data Structure is a sequential collection of elements that follows the principle of First In First Out (FIFO)
+// The first element inserted into the Queue is also the first element
+// A Queue of People. People enter the queue at one end(Tail) and leave the queue from the other Head)
+// A Queue Data Structure supports two main operations: ENQUEUE(which adds an element to the Tail of the collection) and DEQUEUE( which removes an element from the Head of the collection)
+
+// Printers, when we print multiple documents
+// CPU task scheduling
+// Callback Queue in javascript runtime
+class Queue {
+    constructor(){
+        this.items = []
+    }
+
+    enqueue(element){
+        this.items.push(element)
+    }
+
+    dequeue(element){
+        return this.items.shift()
+    }
+
+    isEmpty(){
+        return this.items.length === 0;
+    }
+
+    peek(){
+        if(!this.isEmpty()){
+            return this.items[0];
+        }
+        return null;
+    }
+
+    size() {
+        return this.items.length;
+    }
+
+    print(){
+        console.log(this.items.toString())
+    }
+}
+
+const queue = new Queue();
+
+
+class OptimizedQueue {
+    constructor(){
+        this.items = {};
+        this.rear = 0;
+        this.front = 0;
+    }
+
+    enqueue(element){
+        this.items[this.rear] = element;
+        // increment rear by one so that next element can be inserted into the position, as keys are 0, 1,2 , 4, ...
+        this.rear++;
+    }
+
+    dequeue(){
+        const item = this.items[this.front];
+        delete this.items[this.front];
+        this.front ++;
+        return item;
+    }
+
+    isEmpty() {
+         return this.rear - this.front === 0;
+    }
+
+    peek() {
+        return this.items[this.front];
+    }
+
+    size() {
+        return this.rear - this.front;
+    }
+
+    print() {
+        console.log(this.items);
+    }
+
+}
+
+
+//* Circular Queue
+
 return res.status(200).json({
             message: "DSA Playlist Controller is working",
 });
