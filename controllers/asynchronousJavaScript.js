@@ -194,6 +194,87 @@ export const asynchronousJavascript = asyncHandler((req, res) => {
 
     //Async Await
     // Async Await is a syntactic sugar over promises, it makes asynchronous code look and behave like synchronous code
+    // The Async keyword is used to declare a function as asynchronous, it returns a promise implicitly
+    // Async Functions are functions that are instances of the AsyncFunction constructor
+    // Unlike normal functions, async functions always return a promise. If the function returns a value, the promise will be resolved with that value; if the function throws an exception, the promise will be rejected with that exception.
+    function syncGreet() { return "Hello"};
+    async function asyncGreet() { return "Hello"};
+    syncGreet(); // This will return "Hello"
+    asyncGreet(); // This will return a promise that will be resolved with "Hello"
+    asyncGreet().then((value) => console.log(value)); // This will return "Hello"
+
+    // The Await keyword is used to wait for a promise to be resolved or rejected, it can only be used inside an async function
+    // When the await keyword is used, the async function is paused until the promise is resolved
+
+    //* Sequential vs Concurrent vs Parallel Execution of Async Code
+    function resolveHello(){
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve("Hello");
+            }, 2000);
+        });
+    }
+    function resolveWorld(){
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve("World");
+            }, 1000);
+        });
+    }
+
+    async function sequentialExecution(){
+        const hello = await resolveHello(); // Waits 2 seconds
+        console.log(hello);
+        
+        const world = await resolveWorld(); // Waits 1 second
+        console.log(world);
+        // logs after 2 + 1 = 3 seconds
+    }
+    
+    async function concurrentExecution(){
+        const hello = resolveHello();
+        const world = resolveWorld();
+        
+        console.log(await hello);
+        console.log(await world);
+        // logs after 2 seconds as 2 > 1
+    }
+
+    async function parallelExecution(){
+        await Promise.all([
+            (async () => console.log(await resolveHello()))(),
+            (async () => console.log(await resolveWorld()))()
+        ])
+    }
+
+    //* Event Loop
+    // JS Runtime Environemnt: A model that makes it possible to execute JS code outside the browser
+    // 1. JS Engine: V8 (Chrome, Node.js), SpiderMonkey (Firefox), JavaScriptCore (Safari); It consist of Call Stack(To execute code, functions are pushed to the callstack and when the function returns it is popped off the call stack) and Memory Heap(Used to allocate memory to variables, objects, and functions)
+    // 2. Web APIs: These are the API's provided by the browser to execute asynchronous code, like DOM, Fetch, setTimeout, etc.
+    // 3. Callback/Task Queue: This is a queue that holds the callback functions that are to be executed after the asynchronous operation is completed
+    // 4. Event Loop: This is a loop that continuously checks the call stack and the callback queue, if the call stack is empty, it pushes the first callback function from the callback queue to the call stack
+    // 5. Memory Heap: This is a memory pool that is used to allocate memory to variables, objects, and functions
+    // 6. Microtask Queue: This is a queue that holds the microtasks that are to be executed after the current task is completed, like promise callbacks
+    // 7. Job Queue: This is a queue that holds the jobs that are to be executed after the current task is completed, like mutation observers
+    // Event Loop checks the microtask queue before the callback queue, so if there are any microtasks in the microtask queue, they will be executed first
+
+    // JavaScript begins execution on the global scope, so global() gets pushed to the call stack
+    // Execution begins with line 1,
+    // If the code encountered is synchronous, it is executed immediately popped off from Call Stack and the next line is pushed
+    // If the code encountered is asynchronous, it is pushed to Web APIs, and the next line is pushed to Call Stack
+    // Unlike most async operations, Fetch leaves behind a Promise Object in the Memory Heap
+    // You can notice that the Call Stack is now empty, lets say after fetch we have a Promise.then() method
+    // So the Promise.then() method is pushed to the Call Stack, it only has one purpose, to register a callback function to be executed when the Promise is resolved in the Memory Heap
+    // Once the Fetch API brings the data it will put the data in Promise.value in Memory Heap, as the Promise.value is updated, JS will now automatically execute the onFulfillment callback which was assigned by Promise.then() method
+    // But the onFulfillment callback cannot be pushed directly to the Call Stack as it is asynchronous
+    // So the onFulfillment callback is pushed to the Microtask Queue along with the Promise value
+    // The Event Loop now checks the Call Stack, as it is empty, it will check the Microtask Queue
+    // As the Callstack is empty and there is a callback function in the Microtask Queue, it will push the onFulfillment callback to the Call Stack
+    // Finally there is no more code to run and the Memory is also Garbage Collected
+    // The Event Loop checks the Microtask Queue before the Callback Queue even if the Callback Queue has been waiting for a long time
+    // Promises when resolved or rejected, their callbacks are pushed to Microtask Queue
+
+
 
 
   return res.status(200).json({
